@@ -399,5 +399,17 @@ document.querySelector('#theme').onclick=()=>{document.body.classList.toggle('da
   replaceStudyFlitsEmojis(document.body);
   new MutationObserver(records=>records.forEach(record=>record.addedNodes.forEach(node=>{if(node.nodeType===Node.ELEMENT_NODE||node.nodeType===Node.DOCUMENT_FRAGMENT_NODE)replaceStudyFlitsEmojis(node);if(node.nodeType===Node.TEXT_NODE)replaceStudyFlitsEmojis(node.parentElement)}))).observe(document.body,{childList:true,subtree:true});
 </script>
+<style>
+  .welcome-flixy-video{width:78px;height:82px;object-fit:contain;display:block}.flixy-character:has(.welcome-flixy-video){animation:none!important}
+</style>
+<script>
+  function installWelcomeFlixy(){
+    const character=document.querySelector('.flixy-character');
+    if(!character)return;
+    character.innerHTML='<video class="welcome-flixy-video" muted autoplay loop playsinline preload="auto" poster="flixy/main%20logo.png"><source src="flixy/afk.webm" type="video/webm"></video>';
+    character.querySelector('video').play().catch(()=>{});
+  }
+  window.addEventListener('load',installWelcomeFlixy,{once:true});
+</script>
 </body>
 </html>
