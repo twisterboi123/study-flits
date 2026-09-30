@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#8b4de8" />
+  <link rel="icon" type="image/png" href="flixy/main%20logo.png" />
+  <link rel="apple-touch-icon" href="flixy/main%20logo.png" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <title>StudyFlits — Slim oefenen</title>
+  <style>
+    :root{--green:#58cc02;--green-dark:#46a302;--ink:#263238;--muted:#718096;--paper:#fff;--bg:#f6f9f3;--line:#e4ebdf;--orange:#ff9f1c;--red:#ff5d6c;--blue:#43a7ff;--shadow:0 7px 0 #dce7d6,0 12px 28px rgba(38,50,56,.08)}
+    *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.4 ui-rounded,"Nunito",system-ui,sans-serif} button,input{font:inherit} button{cursor:pointer;border:0}.app{min-height:100vh}.top{height:70px;background:var(--paper);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 max(20px,calc((100vw - 1040px)/2));position:sticky;top:0;z-index:3}.brand{font-weight:900;font-size:1.32rem;color:var(--green-dark);letter-spacing:-.5px}.brand span{color:var(--ink)}.stats{display:flex;gap:15px;align-items:center;font-weight:800}.stat{white-space:nowrap}.shell{width:min(960px,100%);margin:auto;padding:28px 18px 90px}.page{display:none}.page.active{display:block}.hero{display:grid;grid-template-columns:1.4fr 1fr;gap:22px;margin-bottom:24px}.card{background:var(--paper);border:1px solid var(--line);border-radius:22px;padding:22px;box-shadow:var(--shadow)}h1{font-size:clamp(1.8rem,4vw,2.7rem);line-height:1.04;margin:0 0 10px}h2{font-size:1.3rem;margin:0 0 14px}h3{margin:0}.eyebrow{color:var(--green-dark);font-weight:900;text-transform:uppercase;font-size:.78rem;letter-spacing:.08em}.goal{margin-top:20px}.bar{height:14px;border-radius:99px;background:#e7eee3;overflow:hidden}.bar i{display:block;height:100%;background:linear-gradient(90deg,#76dd15,var(--green));border-radius:inherit;transition:.4s}.goal-copy{display:flex;justify-content:space-between;margin:7px 0;font-size:.9rem;font-weight:800}.quick{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:18px 0 26px}.quick button,.mode{background:#fff;border:1px solid var(--line);border-bottom:4px solid #dce7d6;border-radius:16px;padding:15px 10px;color:var(--ink);font-weight:900;transition:.15s}.quick button:hover,.mode:hover{transform:translateY(-2px);border-bottom-color:var(--green)}.subject{display:flex;gap:18px;align-items:center}.flag{background:#fff3dc;width:60px;height:60px;border-radius:18px;display:grid;place-items:center;font-size:2rem}.subject-meta{flex:1}.chip{font-weight:900;color:var(--green-dark);font-size:.85rem}.primary{color:white;background:var(--green);padding:14px 19px;border-radius:14px;font-weight:900;border-bottom:4px solid var(--green-dark);transition:.15s}.primary:hover{filter:brightness(1.04);transform:translateY(-1px)}.primary:active{border-bottom-width:1px;transform:translateY(3px)}.secondary{padding:12px 17px;border-radius:13px;background:#eef7e9;color:var(--green-dark);font-weight:900}.future{opacity:.67;background:repeating-linear-gradient(-45deg,#fff,#fff 8px,#f9fbf7 8px,#f9fbf7 16px)}.future p{margin:.2rem 0 0;color:var(--muted)}.section-head{display:flex;justify-content:space-between;align-items:center;margin:26px 0 12px}.quiz-wrap{max-width:600px;margin:0 auto}.quiz-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px}.quiz-card{text-align:center;min-height:370px;display:flex;flex-direction:column;justify-content:center;gap:22px}.prompt{font-size:1rem;color:var(--muted);font-weight:800}.term{font-size:clamp(2rem,7vw,3.2rem);font-weight:900;letter-spacing:-1.5px}.speak{display:inline-grid;place-items:center;border-radius:50%;width:40px;height:40px;background:#eaf8df;color:var(--green-dark);font-size:1.15rem;vertical-align:middle;margin-left:8px}.answer{width:100%;border:2px solid #dce7d6;border-radius:15px;padding:15px;font-weight:700;outline:0}.answer:focus{border-color:var(--green);box-shadow:0 0 0 4px #eaf8df}.choices{display:grid;gap:10px;text-align:left}.choice{padding:14px 16px;background:#fff;border:2px solid var(--line);border-bottom:4px solid #dce7d6;border-radius:14px;font-weight:800}.choice:hover{border-color:#9bdd6c}.choice.selected{background:#eaf8df;border-color:var(--green)}.feedback{border-radius:14px;padding:13px;font-weight:900;display:none}.feedback.good{display:block;background:#e6f8dc;color:#347700}.feedback.bad{display:block;background:#ffe9ec;color:#c63143}.quiz-actions{display:flex;gap:10px;justify-content:flex-end}.hidden{display:none!important}.flashcard{perspective:1000px;cursor:pointer;min-height:270px}.flash-inner{height:270px;position:relative;transition:transform .55s;transform-style:preserve-3d}.flashcard.flipped .flash-inner{transform:rotateY(180deg)}.face{position:absolute;inset:0;backface-visibility:hidden;display:grid;place-items:center;padding:25px;border-radius:22px;background:var(--paper);border:1px solid var(--line);box-shadow:var(--shadow);font-size:2rem;font-weight:900;text-align:center}.back{transform:rotateY(180deg);background:#eaf8df;color:var(--green-dark)}.flash-buttons{display:flex;justify-content:center;gap:12px;margin-top:22px}.path{display:grid;gap:10px;max-width:440px;margin:15px auto}.lesson{display:flex;align-items:center;gap:14px;background:var(--paper);padding:14px;border-radius:17px;border:1px solid var(--line);font-weight:900}.lesson .dot{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:#eaf8df;color:var(--green-dark)}.lesson.locked{opacity:.5}.list{display:grid;gap:9px}.word{display:flex;justify-content:space-between;padding:14px 16px;border-radius:13px;background:#fff;border:1px solid var(--line);font-weight:800}.word span{color:var(--muted);font-weight:700}.nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--line);display:flex;justify-content:center;gap:min(9vw,65px);padding:9px env(safe-area-inset-right) calc(9px + env(safe-area-inset-bottom)) env(safe-area-inset-left);z-index:3}.nav button{background:transparent;color:var(--muted);font-size:.72rem;font-weight:900;display:grid;gap:2px;place-items:center}.nav button b{font-size:1.25rem}.nav button.active{color:var(--green-dark)}body.dark{--paper:#1f2a2b;--bg:#142021;--ink:#eef7f3;--muted:#adbbb7;--line:#344342;--shadow:0 7px 0 #152021,0 12px 28px rgba(0,0,0,.24)}body.dark .quick button,body.dark .choice,body.dark .word{background:#243233}body.dark .nav,body.dark .top{background:#1f2a2b}body.dark .future{background:repeating-linear-gradient(-45deg,#1f2a2b,#1f2a2b 8px,#223031 8px,#223031 16px)}
+    @media(max-width:620px){.top{height:62px;padding:0 16px}.stats{gap:8px;font-size:.84rem}.hero{grid-template-columns:1fr}.shell{padding:20px 14px 88px}.quick{grid-template-columns:repeat(2,1fr)}.card{padding:18px}.subject{align-items:flex-start}.subject .primary{font-size:.85rem;padding:12px}.quiz-card{min-height:390px}.nav{gap:8vw}.nav button{min-width:47px}}
+  </style>
+</head>
+<body>
+<div class="app">
+  <header class="top"><div class="brand"><img class="brand-mascot" src="flixy/main%20logo.png" alt="Flixy">study<span>flits</span></div><div class="stats"><span class="stat">🔥 <b id="streak">1</b></span><span class="stat">⭐ <b id="xp">0</b> XP</span><span class="stat">❤️ <b id="hearts">5</b></span><button class="secondary" id="theme" aria-label="Donkere modus">☾</button><button class="profile-button" onclick="toggleProfile()" aria-label="Profiel">👤</button></div></header>
+  <main class="shell">
+    <section class="page active" id="home">
+      <div class="hero"><div class="card"><div class="eyebrow">Jouw leerplek</div><h1 id="welcomeHeading">Welkom terug 👋</h1><p>Een paar vragen vandaag, een pak zekerder op je toets.</p><div class="goal"><div class="goal-copy"><span>Doel van vandaag</span><span id="goalText">0 / 10 vragen</span></div><div class="bar"><i id="goalBar" style="width:0%"></i></div></div></div><div class="card"><div class="eyebrow">Klaar voor de start</div><h2 style="margin-top:8px">Frans in kleine stapjes</h2><p style="color:var(--muted)">Typ, kies, luister en herhaal. Je voortgang wordt op dit toestel onthouden.</p><button class="primary" onclick="startMode('mixed')">Verder leren →</button></div></div>
+      <div class="section-head"><h2>Woordenschat toets 1</h2><span class="chip" id="mastery">0% beheerst</span></div>
+      <div class="card subject" onclick="showPage('course')"><div class="flag">🇫🇷</div><div class="subject-meta"><h3>Frans</h3><div class="goal-copy"><span>Woordenschat toets 1</span><span id="progressText">0 / 11</span></div><div class="bar"><i id="progressBar" style="width:0%"></i></div></div><button class="primary">Open Frans →</button></div>
+      <div class="quick"><button onclick="startMode('typed')">✍️<br>Typvragen</button><button onclick="startMode('choice')">🎯<br>Meerkeuze</button><button onclick="startMode('flash')">🃏<br>Flashcards</button><button onclick="startMode('difficult')">🧠<br>Moeilijke woorden</button><button onclick="showPage('words')">📚<br>Woordenlijst</button><button onclick="showPage('path')">🗺️<br>Leerpad</button></div>
+      <div class="section-head"><h2>Meer dingen in de toekomst 👀</h2></div><div class="card future"><h3>🔒 Meer vakken en tests</h3><p>Binnenkort</p></div>
+    </section>
+    <section class="page" id="quiz"><div class="quiz-wrap"><div class="quiz-top"><button class="secondary" onclick="showPage('home')">← Stoppen</button><span class="chip" id="questionCount">Vraag 1</span><div style="width:110px" class="bar"><i id="quizBar"></i></div></div><div id="quizCard" class="card quiz-card"></div><div class="quiz-actions"><button id="check" class="primary" onclick="checkAnswer()">Controleren</button><button id="next" class="primary hidden" onclick="nextQuestion()">Volgende →</button></div></div></section>
+    <section class="page" id="flash"><div class="quiz-wrap"><div class="quiz-top"><button class="secondary" onclick="showPage('home')">← Terug</button><span class="chip" id="flashCount"></span></div><div class="flashcard" id="flashCard" onclick="flipCard()"><div class="flash-inner"><div class="face" id="flashFront"></div><div class="face back" id="flashBack"></div></div></div><p style="text-align:center;color:var(--muted);font-weight:700">Tik op de kaart om te draaien</p><div class="flash-buttons"><button class="secondary" onclick="rateCard(false)">❌ Nog oefenen</button><button class="primary" onclick="rateCard(true)">✅ Ik weet het</button></div></div></section>
+    <section class="page" id="words"><div class="section-head"><h1>Woordenlijst</h1><button class="secondary" onclick="showPage('home')">Terug</button></div><div class="list" id="wordList"></div></section>
+    <section class="page" id="path"><div class="section-head"><h1>Jouw leerpad</h1><button class="secondary" onclick="showPage('home')">Terug</button></div><div class="path"><div class="lesson"><span class="dot">✓</span><span>Start — basiswoorden</span></div><div class="lesson"><span class="dot">1</span><span>Les 1 — Nederlands → Frans</span></div><div class="lesson locked"><span class="dot">🔒</span><span>Les 2 — Frans → Nederlands</span></div><div class="lesson locked"><span class="dot">🔒</span><span>Les 3 — Gemengd oefenen</span></div><div class="lesson locked"><span class="dot">🔒</span><span>Test — Woordenschat toets 1</span></div></div></section>
+  </main>
+  <nav class="nav"><button class="active" data-page="home" onclick="showPage('home')"><b>⌂</b>Home</button><button data-page="quiz" onclick="startMode('mixed')"><b>✦</b>Oefenen</button><button data-page="flash" onclick="startMode('flash')"><b>🃏</b>Kaarten</button><button data-page="words" onclick="showPage('words')"><b>☷</b>Woorden</button></nav>
+</div>
+<script>
+const vocab=[['un sport','een sport'],['une couleur','een kleur'],['une saison','een seizoen'],['une ville','een stad'],['un vêtement','een kledingstuk'],['une chanson','een liedje','een nummer'],['un film','een film'],['un pays','een land'],['un livre','een boek'],['un hobby','een hobby'],['un fruit','fruit','een vrucht']];
+let state=JSON.parse(localStorage.getItem('fransflits')||'{"xp":0,"done":0,"correct":{},"seen":{},"streak":1,"today":0}'), mode='mixed', queue=[], current=null, selected=null, flashIndex=0;
+function save(){localStorage.setItem('fransflits',JSON.stringify(state));renderStats()};function norm(s){return s.toLowerCase().trim().replace(/\s+/g,' ')}
+function renderStats(){document.querySelector('#xp').textContent=state.xp;document.querySelector('#streak').textContent=state.streak;const mastered=Object.values(state.correct).filter(x=>x>=2).length;document.querySelector('#mastery').textContent=Math.round(mastered/vocab.length*100)+'% beheerst';document.querySelector('#progressText').textContent=mastered+' / '+vocab.length;document.querySelector('#progressBar').style.width=(mastered/vocab.length*100)+'%';document.querySelector('#goalText').textContent=Math.min(state.today,10)+' / 10 vragen';document.querySelector('#goalBar').style.width=Math.min(state.today*10,100)+'%';document.querySelector('#wordList').innerHTML=vocab.map((w,i)=>`<div class="word"><span>${w[0]} <button class="speak" style="width:30px;height:30px;font-size:.9rem" onclick="speak('${w[0]}')">🔊</button></span><span>${w.slice(1).join(' / ')}</span></div>`).join('')}
+function showPage(id){document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===id));document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===id));window.scrollTo({top:0,behavior:'smooth'})}
+function shuffle(a){return [...a].sort(()=>Math.random()-.5)}
+function startMode(m){mode=m;if(m==='flash'){flashIndex=0;showPage('flash');renderFlash();return}let pool=m==='difficult'?vocab.filter((_,i)=>(state.correct[i]||0)<2):vocab;if(!pool.length)pool=vocab;queue=shuffle(pool).slice(0,Math.min(8,pool.length));showPage('quiz');nextQuestion()}
+function nextQuestion(){current=queue.length?queue.shift():shuffle(vocab)[0];selected=null;document.querySelector('#next').classList.add('hidden');document.querySelector('#check').classList.remove('hidden');let i=vocab.indexOf(current), reverse=mode==='mixed'?Math.random()>.5:mode==='choice'&&Math.random()>.5;let type=mode==='choice'||(mode==='mixed'&&Math.random()>.52)?'choice':'typed';let ask=reverse?current[0]:current[1], answers=reverse?current.slice(1):[current[0]];document.querySelector('#questionCount').textContent='Nog '+(queue.length+1)+' vraag'+(queue.length!==0?'en':'');document.querySelector('#quizBar').style.width=((8-queue.length)/8*100)+'%';let html=`<div class="prompt">${reverse?'Vertaal naar het Nederlands':'Vertaal naar het Frans'}</div><div class="term">${ask}${reverse?` <button class="speak" onclick="speak('${current[0]}')">🔊</button>`:''}</div>`;if(type==='typed')html+=`<input id="answer" class="answer" autocomplete="off" placeholder="Typ je antwoord…" onkeydown="if(event.key==='Enter')checkAnswer()">`;else{let options=shuffle([answers[0],...shuffle(vocab.filter(w=>w!==current).map(w=>reverse?w[1]:w[0])).slice(0,3)]);html+=`<div class="choices">${options.map(x=>`<button class="choice" onclick="pick(this,'${x.replace(/'/g,"\\'")}')">${x}</button>`).join('')}</div>`}html+=`<div id="feedback" class="feedback"></div>`;document.querySelector('#quizCard').innerHTML=html;setTimeout(()=>document.querySelector('#answer')?.focus(),100)}
+function pick(el,val){document.querySelectorAll('.choice').forEach(x=>x.classList.remove('selected'));el.classList.add('selected');selected=val}
+function checkAnswer(){let i=vocab.indexOf(current), reverse=document.querySelector('.prompt').textContent.includes('Nederlands'), accepted=reverse?current.slice(1):[current[0]], answer=document.querySelector('#answer')?.value||selected||'', good=accepted.map(norm).includes(norm(answer));let f=document.querySelector('#feedback');f.className='feedback '+(good?'good':'bad');f.textContent=good?'Goed gedaan! +10 XP 🎉':'Bijna! Het juiste antwoord is: '+accepted.join(' / ');if(good){state.xp+=10;state.correct[i]=(state.correct[i]||0)+1}else state.correct[i]=Math.max(0,(state.correct[i]||0)-1);state.seen[i]=(state.seen[i]||0)+1;state.today++;save();document.querySelectorAll('.choice').forEach(x=>x.disabled=true);document.querySelector('#answer')?.setAttribute('disabled','');document.querySelector('#check').classList.add('hidden');document.querySelector('#next').classList.remove('hidden')}
+function renderFlash(){let w=vocab[flashIndex%vocab.length];document.querySelector('#flashCard').classList.remove('flipped');document.querySelector('#flashFront').textContent=w[1];document.querySelector('#flashBack').innerHTML=w[0]+` <button class="speak" onclick="event.stopPropagation();speak('${w[0]}')">🔊</button>`;document.querySelector('#flashCount').textContent=(flashIndex%vocab.length+1)+' / '+vocab.length}
+function flipCard(){document.querySelector('#flashCard').classList.toggle('flipped')}function rateCard(known){let i=flashIndex%vocab.length;state.correct[i]=Math.max(0,(state.correct[i]||0)+(known?1:-1));state.today++;if(known)state.xp+=5;save();flashIndex++;renderFlash()}
+function speak(text){if('speechSynthesis'in window){speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(text);u.lang='fr-FR';speechSynthesis.speak(u)}}
+document.querySelector('#theme').onclick=()=>{document.body.classList.toggle('dark');document.querySelector('#theme').textContent=document.body.classList.contains('dark')?'☀':'☾'};renderStats();
+</script>
+<style>
+  .feedback.close{display:block;background:#fff0d6;color:#a85b00}
+</style>
+<script>
+  /* A small spelling mistake deserves helpful orange feedback, not a red fail. */
+  function distance(a,b){
+    a=norm(a); b=norm(b);
+    let row=Array.from({length:b.length+1},(_,i)=>i);
+    for(let i=1;i<=a.length;i++){
+      const next=[i];
+      for(let j=1;j<=b.length;j++) next[j]=Math.min(next[j-1]+1,row[j]+1,row[j-1]+(a[i-1]===b[j-1]?0:1));
+      row=next;
+    }
+    return row[b.length];
+  }
+  function checkAnswer(){
+    const i=vocab.indexOf(current);
+    const reverse=document.querySelector('.prompt').textContent.includes('Nederlands');
+    const accepted=reverse?current.slice(1):[current[0]];
+    const answer=document.querySelector('#answer')?.value||selected||'';
+    const good=accepted.map(norm).includes(norm(answer));
+    const closest=accepted.reduce((best,word)=>distance(answer,word)<distance(answer,best)?word:best,accepted[0]);
+    const close=!good && answer && distance(answer,closest)<=2;
+    const feedback=document.querySelector('#feedback');
+    feedback.className='feedback '+(good?'good':close?'close':'bad');
+    feedback.textContent=good
+      ?'Goed gedaan! +10 XP 🎉'
+      :close
+        ?`Bijna goed — je schreef “${answer}”. Kijk nog eens naar: ${closest}.`
+        :'Dat klopt niet. Het juiste antwoord is: '+accepted.join(' / ');
+    if(good){state.xp+=10;state.correct[i]=(state.correct[i]||0)+1}
+    else state.correct[i]=Math.max(0,(state.correct[i]||0)-1);
+    state.seen[i]=(state.seen[i]||0)+1; state.today++; save();
+    document.querySelectorAll('.choice').forEach(x=>x.disabled=true);
+    document.querySelector('#answer')?.setAttribute('disabled','');
+    document.querySelector('#check').classList.add('hidden');
+    document.querySelector('#next').classList.remove('hidden');
+  }
+</script>
+<style>
+  /* Flits is intentionally drawn in CSS: crisp, playful and not a generic AI render. */
+  .flits{position:fixed;right:18px;bottom:78px;width:86px;height:96px;z-index:4;pointer-events:none;filter:drop-shadow(0 8px 8px rgba(38,50,56,.16));transition:transform .2s}
+  .flits-body{position:absolute;inset:8px 11px 5px;background:#73d935;clip-path:polygon(57% 0,100% 0,72% 35%,94% 35%,30% 100%,45% 53%,12% 53%);border-radius:28px}
+  .flits-face{position:absolute;top:35px;left:26px;right:20px;height:27px;display:flex;justify-content:space-between}.flits-eye{width:10px;height:14px;background:#22383c;border-radius:50%;position:relative}.flits-eye:after{content:'';width:3px;height:4px;border-radius:50%;background:#fff;position:absolute;top:2px;left:2px}.flits-mouth{position:absolute;left:17px;top:17px;width:17px;height:9px;border:3px solid #22383c;border-top:0;border-radius:0 0 13px 13px}.flits-title{position:absolute;top:-12px;left:-7px;background:#fff;padding:3px 7px;border-radius:9px;font-weight:900;font-size:.67rem;color:#4d9d12;opacity:0;transform:translateY(5px);transition:.2s}.flits.celebrate{animation:flits-hop .55s ease-in-out 2}.flits.celebrate .flits-title{opacity:1;transform:translateY(0)}.flits.oops{animation:flits-shake .42s ease-in-out 2}.flits.oops .flits-mouth{height:5px;border-radius:13px 13px 0 0;border-top:3px solid #22383c;border-bottom:0}.flits.oops .flits-title{opacity:1;transform:translateY(0);color:#ce4a27}.flits.oops .flits-body{background:#ffa733}@keyframes flits-hop{50%{transform:translateY(-20px) rotate(-8deg)}}@keyframes flits-shake{25%{transform:rotate(-9deg)}75%{transform:rotate(9deg)}}@media(max-width:620px){.flits{width:62px;height:70px;right:9px;bottom:67px}.flits-face{top:27px;left:18px;right:14px;transform:scale(.76);transform-origin:top left}.flits-title{display:none}}
+</style>
+<div class="flits" id="flits" aria-hidden="true"><span class="flits-title" id="flitsTitle"></span><div class="flits-body"></div><div class="flits-face"><i class="flits-eye"></i><i class="flits-eye"></i><i class="flits-mouth"></i></div></div>
+<script>
+  function reactFlits(type){
+    const flits=document.querySelector('#flits'), title=document.querySelector('#flitsTitle');
+    flits.className='flits '+type;
+    title.textContent=type==='celebrate'?'Yes! +XP':'Probeer opnieuw!';
+    setTimeout(()=>flits.className='flits',1500);
+  }
+  function checkAnswer(){
+    const i=vocab.indexOf(current);
+    const reverse=document.querySelector('.prompt').textContent.includes('Nederlands');
+    const accepted=reverse?current.slice(1):[current[0]];
+    const answer=document.querySelector('#answer')?.value||selected||'';
+    const good=accepted.map(norm).includes(norm(answer));
+    const closest=accepted.reduce((best,word)=>distance(answer,word)<distance(answer,best)?word:best,accepted[0]);
+    const close=!good && answer && distance(answer,closest)<=2;
+    const feedback=document.querySelector('#feedback');
+    feedback.className='feedback '+(good?'good':close?'close':'bad');
+    feedback.textContent=good
+      ?'Goed gedaan! +10 XP 🎉'
+      :close
+        ?`Bijna goed — je schreef “${answer}”. Kijk nog eens naar: ${closest}.`
+        :'Dat klopt niet. Het juiste antwoord is: '+accepted.join(' / ');
+    if(good){state.xp+=10;state.correct[i]=(state.correct[i]||0)+1;reactFlits('celebrate')}
+    else {state.correct[i]=Math.max(0,(state.correct[i]||0)-1);queue.push(current);reactFlits('oops')}
+    state.seen[i]=(state.seen[i]||0)+1; state.today++; save();
+    document.querySelectorAll('.choice').forEach(x=>x.disabled=true);
+    document.querySelector('#answer')?.setAttribute('disabled','');
+    document.querySelector('#check').classList.add('hidden');
+    document.querySelector('#next').classList.remove('hidden');
+  }
+</script>
+<style>
+  .flits-body{inset:8px 8px 4px!important;background:#79df36!important;clip-path:none!important;border-radius:48% 48% 44% 44%!important;border:4px solid #4aa914!important}
+  .flits-body:after{content:'⚡';position:absolute;inset:0;display:grid;place-items:center;color:#fff;font-size:2.8rem;line-height:1;text-shadow:none}
+  .flits-face{z-index:1}.flits.oops .flits-body{background:#ffad35!important;border-color:#df7a13!important}
+</style>
+<style>
+  .brand{display:flex;align-items:center;gap:4px}.brand-mascot{display:grid;place-items:center;width:30px;height:30px;border-radius:11px;background:#79df36;color:#fff;font-style:normal;font-size:1.05rem;transform:rotate(8deg);margin-right:2px}
+  #home .hero .card:first-child{position:relative;padding-right:116px}#home .hero .card:first-child .flits{position:absolute;right:15px;bottom:11px;width:88px;height:96px;filter:none;z-index:1}.flits-title{display:none!important}
+  .onboard{position:fixed;inset:0;z-index:20;background:rgba(24,40,34,.56);display:grid;place-items:center;padding:18px}.onboard-card{width:min(440px,100%);background:var(--paper);border-radius:26px;padding:28px;box-shadow:0 24px 60px rgba(0,0,0,.24);text-align:center}.onboard-icon{font-size:3.4rem;width:74px;height:74px;display:grid;place-items:center;background:#eaf8df;border-radius:24px;margin:0 auto 12px}.onboard-card h2{font-size:1.7rem;margin-bottom:7px}.onboard-card p{color:var(--muted);margin-top:0}.onboard input{width:100%;border:2px solid var(--line);border-radius:14px;padding:14px;margin:9px 0 12px;outline:0}.onboard input:focus{border-color:var(--green)}.role-options{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0 18px}.role{border:2px solid var(--line);border-radius:15px;background:var(--paper);padding:13px 8px;font-weight:900;color:var(--ink)}.role.selected{border-color:var(--green);background:#eaf8df;color:var(--green-dark)}.teacher-note{background:#fff0d6;color:#a85b00;border-radius:12px;padding:10px;font-size:.88rem;font-weight:800;margin-bottom:12px;display:none}.teacher-note.show{display:block}@media(max-width:620px){#home .hero .card:first-child{padding-right:87px}#home .hero .card:first-child .flits{width:68px;height:75px;right:8px;bottom:8px}}
+</style>
+<script>
+  /* Place Flits where the learner meets it, rather than pinning it to the screen edge. */
+  const mascot=document.querySelector('#flits');
+  document.querySelector('#home .hero .card:first-child').append(mascot);
+  let chosenRole='leerling';
+  function chooseRole(role){chosenRole=role;document.querySelectorAll('.role').forEach(x=>x.classList.toggle('selected',x.dataset.role===role));document.querySelector('#teacherNote').classList.toggle('show',role==='leerkracht')}
+  function finishWelcome(){const name=document.querySelector('#welcomeName').value.trim();if(!name){document.querySelector('#welcomeName').focus();return}localStorage.setItem('studyflitsProfile',JSON.stringify({name,role:chosenRole}));document.querySelector('#onboard').remove();document.querySelector('#welcomeHeading').textContent='Welkom terug, '+name+' 👋'}
+  const profile=JSON.parse(localStorage.getItem('studyflitsProfile')||'null');
+  if(profile){document.querySelector('#welcomeHeading').textContent='Welkom terug, '+profile.name+' 👋'}else{document.body.insertAdjacentHTML('beforeend',`<div class="onboard" id="onboard"><div class="onboard-card"><div class="onboard-icon">⚡</div><h2>Welkom bij StudyFlits!</h2><p>Even kort kennismaken, dan kan je meteen beginnen.</p><input id="welcomeName" placeholder="Hoe heet je?" autocomplete="name"><div class="role-options"><button class="role selected" data-role="leerling" onclick="chooseRole('leerling')">🎓<br>Ik ben leerling</button><button class="role" data-role="leerkracht" onclick="chooseRole('leerkracht')">🧑‍🏫<br>Ik ben leerkracht</button></div><div class="teacher-note" id="teacherNote">Leuk! Meer opties voor leerkrachten komen er binnenkort aan.</div><button class="primary" style="width:100%" onclick="finishWelcome()">Start mijn avontuur →</button></div></div>`)}
+</script>
+<style>
+  .flixy-intro{display:flex;align-items:center;gap:14px;text-align:left;margin:0 0 18px;animation:intro-pop .55s cubic-bezier(.17,.89,.32,1.28)}
+  .flixy-character{flex:0 0 78px;height:82px;position:relative;animation:flixy-float 2.1s ease-in-out infinite}.flixy-character .head{position:absolute;inset:6px 4px 0;background:#79df36;border:4px solid #4aa914;border-radius:48% 48% 43% 43%;box-shadow:inset 0 -7px 0 rgba(74,169,20,.12)}.flixy-character .bolt{position:absolute;inset:13px 0 0;z-index:1;display:grid;place-items:center;font-size:2.2rem;transform:rotate(7deg)}.flixy-character .eyes{position:absolute;z-index:2;top:32px;left:22px;right:21px;display:flex;justify-content:space-between}.flixy-character .eyes i{width:8px;height:11px;border-radius:50%;background:#243c3e}.flixy-character .smile{position:absolute;z-index:2;top:46px;left:31px;width:15px;height:7px;border:2px solid #243c3e;border-top:0;border-radius:0 0 10px 10px}.flixy-speech{position:relative;flex:1;background:#eaf8df;border:2px solid #ccebb7;border-radius:17px;padding:11px 13px;color:#397b0b;font-weight:900;font-size:.92rem;min-height:58px;display:flex;align-items:center}.flixy-speech:before{content:'';position:absolute;left:-9px;top:27px;width:15px;height:15px;background:#eaf8df;border-left:2px solid #ccebb7;border-bottom:2px solid #ccebb7;transform:rotate(45deg)}.flixy-speech span{position:relative;z-index:1;animation:speech-in .28s ease-out}@keyframes flixy-float{50%{transform:translateY(-6px) rotate(3deg)}}@keyframes intro-pop{from{opacity:0;transform:scale(.75) translateY(16px)}to{opacity:1;transform:none}}@keyframes speech-in{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+</style>
+<script>
+  /* Make the first visit feel like a friendly conversation with Flixy. */
+  function flixyMarkup(message){return `<div class="flixy-intro"><div class="flixy-character"><i class="head"></i><i class="bolt">⚡</i><div class="eyes"><i></i><i></i></div><i class="smile"></i></div><div class="flixy-speech"><span id="flixyText">${message}</span></div></div>`}
+  function flixySay(message){const old=document.querySelector('#flixyText');if(!old)return;old.textContent=message;old.style.animation='none';void old.offsetWidth;old.style.animation='speech-in .28s ease-out'}
+  function chooseRole(role){chosenRole=role;document.querySelectorAll('.role').forEach(x=>x.classList.toggle('selected',x.dataset.role===role));const teacher=role==='leerkracht';document.querySelector('#teacherNote').classList.toggle('show',teacher);flixySay(teacher?'Leuk! Leerkracht-opties komen er binnenkort aan.':'Top! Ik help je stap voor stap oefenen.')}
+  function finishWelcome(){const name=document.querySelector('#welcomeName').value.trim();if(!name){flixySay('Vertel me eerst even hoe je heet!');document.querySelector('#welcomeName').focus();return}localStorage.setItem('studyflitsProfile',JSON.stringify({name,role:chosenRole}));document.querySelector('#onboard').style.opacity='0';setTimeout(()=>{document.querySelector('#onboard')?.remove();document.querySelector('#welcomeHeading').textContent='Welkom terug, '+name+' 👋'},220)}
+  const modal=document.querySelector('#onboard');
+  if(modal){modal.querySelector('.onboard-card').innerHTML=`${flixyMarkup('Hoi! Ik ben Flixy. Hoe heet jij?')}<input id="welcomeName" placeholder="Typ je naam…" autocomplete="name"><div class="role-options"><button class="role selected" data-role="leerling" onclick="chooseRole('leerling')">🎓<br>Ik ben leerling</button><button class="role" data-role="leerkracht" onclick="chooseRole('leerkracht')">🧑‍🏫<br>Ik ben leerkracht</button></div><div class="teacher-note" id="teacherNote">Meer opties voor leerkrachten komen er binnenkort aan.</div><button class="primary" style="width:100%" onclick="finishWelcome()">Samen starten →</button>`;modal.querySelector('#welcomeName').addEventListener('input',e=>{if(e.target.value.trim())flixySay('Leuk je te ontmoeten, '+e.target.value.trim()+'! Wat ben jij?')})}
+</script>
+<style>
+  /* Flixy's new visual language: a glossy study orb with a lightning beak. */
+  .flits-body{background:radial-gradient(circle at 31% 23%,#c8ff86 0 8%,#8ff340 22%,#61ca21 67%,#43a415 100%)!important;border-color:#398e13!important;box-shadow:inset -8px -11px 0 rgba(39,123,5,.2),inset 5px 5px 0 rgba(255,255,255,.25)!important}
+  .flits-body:after{content:''!important;position:absolute;inset:auto auto auto auto!important;display:block!important}.flits-body:before{content:'';position:absolute;width:24px;height:10px;border-radius:50%;background:rgba(255,255,255,.7);top:13px;left:16px;transform:rotate(-31deg)}
+  .flits-face{top:30px!important;left:22px!important;right:18px!important;height:36px!important}.flits-eye{width:13px!important;height:18px!important;background:#23343a!important;box-shadow:inset 0 -3px 0 #152328}.flits-eye:after{width:5px!important;height:6px!important;top:3px!important;left:3px!important}.flits-mouth{left:19px!important;top:17px!important;width:23px!important;height:16px!important;background:linear-gradient(135deg,#ffd65b,#ff8b21 72%)!important;border:0!important;border-radius:70% 25% 70% 25%!important;transform:rotate(-25deg);box-shadow:inset -3px -3px 0 rgba(190,70,0,.16)}
+  .flits.oops .flits-body{background:radial-gradient(circle at 31% 23%,#ffe69a,#ffba3d 58%,#ef8514)!important;border-color:#d66c10!important}.flits.oops .flits-mouth{background:#dc5d28!important;transform:rotate(18deg)}
+  .brand-mascot{position:relative;background:radial-gradient(circle at 32% 25%,#c8ff86,#71db32 62%,#47aa16)!important;border:2px solid #3f9e14;border-radius:50%!important;color:transparent!important;overflow:hidden}.brand-mascot:after{content:'';position:absolute;width:10px;height:7px;left:9px;top:11px;background:#ff9b27;border-radius:60% 20% 60% 20%;transform:rotate(-26deg)}
+  .flixy-character .head{background:radial-gradient(circle at 30% 22%,#d7ff9d,#86ec3e 58%,#4aaa19)!important;border-color:#398e13!important;box-shadow:inset -7px -8px 0 rgba(39,123,5,.17),inset 5px 5px 0 rgba(255,255,255,.26)!important;border-radius:50%!important}.flixy-character .bolt{font-size:0!important}.flixy-character .bolt:after{content:'';display:block;width:20px;height:13px;background:linear-gradient(135deg,#ffd85c,#ff8a22);border-radius:70% 20% 70% 20%;transform:rotate(-25deg)}.flixy-character .eyes{top:31px!important;left:20px!important;right:18px!important}.flixy-character .eyes i{width:10px!important;height:14px!important;background:#23343a!important;box-shadow:inset 0 -2px 0 #152328}.flixy-character .smile{left:30px!important;top:47px!important;width:19px!important;height:13px!important;background:linear-gradient(135deg,#ffd85c,#ff8a22)!important;border:0!important;border-radius:70% 20% 70% 20%!important;transform:rotate(-25deg)}
+</style>
+<style>
+  .rive-flixy{width:100%;height:100%;display:block}.rive-active{overflow:visible}.rive-active .flits-body,.rive-active .flits-face{display:none}
+</style>
+<script src="https://unpkg.com/@rive-app/canvas@2.31.0"></script>
+<script src="components/flixy/flixyController.js"></script>
+<script>
+  function mountRiveFlixy(){
+    const intro=document.querySelector('.flixy-character');
+    const home=document.querySelector('#flits');
+    const target=intro || home;
+    if(!target || !window.FlixyMascot) return;
+    target.classList.add('rive-active');
+    target.innerHTML='<canvas class="rive-flixy" aria-label="Flixy, de StudyFlits-mascotte"></canvas>';
+    window.FlixyMascot.mount(target.querySelector('canvas'));
+  }
+  window.addEventListener('load',mountRiveFlixy,{once:true});
+  function reactFlits(type){window.setFlixyState?.(type==='celebrate'?'correct':'wrong')}
+  const oldFlixySay=window.flixySay;
+  window.flixySay=function(message){oldFlixySay?.(message);window.setFlixyState?.('talking');clearTimeout(window.__flixyTalkingTimer);window.__flixyTalkingTimer=setTimeout(()=>window.setFlixyState?.('idle'),900)};
+  function speak(text){
+    if(!('speechSynthesis'in window))return;
+    speechSynthesis.cancel();
+    const utterance=new SpeechSynthesisUtterance(text);utterance.lang='fr-FR';
+    utterance.onstart=()=>window.setFlixyState?.('talking');
+    utterance.onend=()=>{window.FlixyMascot?.setTalkAmount(0);window.setFlixyState?.('idle')};
+    speechSynthesis.speak(utterance);
+  }
+</script>
+<style>
+  /* Animated vector fallback while the exported Flixy .riv file is not present. */
+  .flixy-vector-fallback{width:100%;height:100%;display:grid;place-items:center}.flixy-fallback{width:100%;height:100%;overflow:visible}.f-body{transform-origin:90px 95px;animation:flixy-breathe 2.8s ease-in-out infinite}.f-eyes{transform-origin:90px 88px;animation:flixy-blink 4.8s infinite}.f-wing{transform-box:fill-box;animation:flixy-wing 2.7s ease-in-out infinite}.f-wing-left{transform-origin:100% 55%}.f-wing-right{transform-origin:0 55%}.f-beak{transform-origin:90px 112px}.f-feet{transform-origin:90px 150px}@keyframes flixy-breathe{50%{transform:translateY(-3px) scale(1.018)}}@keyframes flixy-wing{50%{transform:rotate(6deg)}}@keyframes flixy-blink{0%,44%,48%,100%{transform:scaleY(1)}46%{transform:scaleY(.12)}}.flixy-vector-fallback[data-state="talking"] .f-beak{animation:flixy-talk .18s ease-in-out infinite alternate}.flixy-vector-fallback[data-state="thinking"] .flixy-fallback{animation:flixy-think 1.4s ease-in-out infinite}.flixy-vector-fallback[data-state="correct"] .flixy-fallback,.flixy-vector-fallback[data-state="excited"] .flixy-fallback{animation:flixy-celebrate .48s ease-in-out 3}.flixy-vector-fallback[data-state="correct"] .f-wing,.flixy-vector-fallback[data-state="excited"] .f-wing{animation:flixy-flap .18s ease-in-out infinite alternate}.flixy-vector-fallback[data-state="wrong"] .flixy-fallback{animation:flixy-wrong .24s ease-in-out 3}.flixy-vector-fallback[data-state="sad"] .flixy-fallback{transform:translateY(5px) rotate(-5deg);transition:.4s}.flixy-vector-fallback[data-state="sad"] .f-wing{transform:rotate(18deg)}@keyframes flixy-talk{to{transform:scaleY(.66) translateY(6px)}}@keyframes flixy-think{50%{transform:rotate(-8deg) translateY(-3px)}}@keyframes flixy-celebrate{50%{transform:translateY(-18px) rotate(6deg) scale(1.04)}}@keyframes flixy-flap{to{transform:rotate(25deg)}}@keyframes flixy-wrong{25%{transform:rotate(-6deg)}75%{transform:rotate(6deg)}}@media(prefers-reduced-motion:reduce){.flixy-fallback,.f-body,.f-wing,.f-eyes{animation:none!important}}
+</style>
+<style>
+  /* StudyFlits purple theme */
+  :root{--green:#8b4de8;--green-dark:#6630ba;--bg:#faf7ff;--line:#e8def9;--shadow:0 7px 0 #e3d8f5,0 12px 28px rgba(72,43,122,.10)}
+  .card{box-shadow:var(--shadow)}.quick button,.mode{border-bottom-color:#e3d8f5}.quick button:hover,.mode:hover{border-bottom-color:#8b4de8}.secondary{background:#f0e8ff;color:#6630ba}.chip,.eyebrow{color:#6630ba}.goal .bar i,.bar i{background:linear-gradient(90deg,#b879ff,#7a3fda)}.brand{color:#6630ba}.brand-mascot{background:radial-gradient(circle at 32% 25%,#f3d7ff,#b979ff 62%,#7041c4)!important;border-color:#6233b0!important}.brand-mascot:after{background:#ffd35e!important}.flits-body{background:radial-gradient(circle at 31% 23%,#f3d7ff,#b879ff 58%,#7041c4)!important;border-color:#6233b0!important}.flits.oops .flits-body{background:radial-gradient(circle at 31% 23%,#ffe8ae,#ffbb4a 58%,#e58014)!important;border-color:#d87514!important}
+  #quiz .quiz-wrap{position:relative}#quiz .flits{position:absolute!important;right:-10px!important;top:41px!important;bottom:auto!important;width:104px!important;height:112px!important;z-index:2;filter:drop-shadow(0 8px 7px rgba(70,38,120,.16))}@media(max-width:620px){#quiz .flits{width:72px!important;height:80px!important;right:-4px!important;top:44px!important}.quiz-card{padding-top:90px}}
+</style>
+<script>
+  /* Flixy moves with the learner: welcome card on Home, beside the active question in practice. */
+  const baseShowPage=window.showPage;
+  window.showPage=function(id){
+    baseShowPage(id);
+    const flixy=document.querySelector('#flits');
+    if(!flixy)return;
+    const destination=id==='quiz'?document.querySelector('#quiz .quiz-wrap'):document.querySelector('#home .hero .card:first-child');
+    if(destination)destination.append(flixy);
+  };
+</script>
+<script>
+  const finishWelcomeWithFlixy=window.finishWelcome;
+  window.finishWelcome=function(){
+    finishWelcomeWithFlixy();
+    setTimeout(()=>{if(!document.querySelector('#onboard'))mountRiveFlixy()},260);
+  };
+</script>
+<style>
+  .flixy-video-shell{width:100%;height:100%;position:relative;display:grid;place-items:center}.flixy-safety-image,.flixy-idle-video,.flixy-reaction-video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}.flixy-safety-image{z-index:0;opacity:0}.flixy-video-shell.video-error .flixy-safety-image{opacity:1}.flixy-idle-video{z-index:1}.flixy-reaction-video{z-index:2;opacity:0;transition:opacity .28s ease-in-out}.flixy-video-shell.playing .flixy-reaction-video{opacity:1}.flixy-video-shell.playing .flixy-idle-video{opacity:1}.flixy-video-shell.finishing .flixy-reaction-video{opacity:0}.brand-mascot{object-fit:contain!important;background:none!important;border:0!important;border-radius:0!important}@media(prefers-reduced-motion:reduce){.flixy-reaction-video{display:none!important}}
+</style>
+<script>
+  /* User-made WebM animations: happy plays for correct answers, sad for mistakes. */
+  function installVideoFlixy(){
+    const holder=document.querySelector('#flits');
+    if(!holder)return;
+    holder.classList.add('flixy-video-shell');
+    holder.innerHTML='<img class="flixy-safety-image" src="flixy/stand%20still.png" alt="Flixy, de paarse dinosaurus"><video class="flixy-idle-video" muted playsinline autoplay loop preload="auto" aria-label="Flixy, de paarse dinosaurus"><source src="flixy/afk.webm" type="video/webm"></video><video class="flixy-reaction-video" muted playsinline preload="auto"></video>';
+    const idleVideo=holder.querySelector('.flixy-idle-video');
+    idleVideo.play().catch(()=>holder.classList.add('video-error'));
+    idleVideo.addEventListener('error',()=>holder.classList.add('video-error'));
+    const video=holder.querySelector('video');
+    window.playFlixyAnimation=function(kind){
+      if(window.matchMedia?.("(prefers-reduced-motion: reduce)").matches)return;
+      const file=kind==='happy'?'happy.webm':'sad.webm';
+      holder.classList.remove('playing','finishing');
+      video.onplaying=()=>holder.classList.add('playing');
+      video.onerror=()=>holder.classList.remove('playing','finishing');
+      video.src='flixy/'+file;
+      video.load();
+      video.play().catch(()=>holder.classList.remove('playing','finishing'));
+    };
+    window.resetFlixyAnimation=function(){
+      holder.classList.remove('playing','finishing');
+      video.pause();
+      video.currentTime=0;
+      idleVideo.play().catch(()=>holder.classList.add('video-error'));
+    };
+    video.addEventListener('ended',()=>{
+      holder.classList.add('finishing');
+      setTimeout(()=>{holder.classList.remove('playing','finishing');video.pause();video.currentTime=0},780);
+    });
+  }
+  window.addEventListener('load',installVideoFlixy,{once:true});
+  function reactFlits(type){window.playFlixyAnimation?.(type==='celebrate'?'happy':'sad')}
+</script>
+<style>
+  .profile-button{margin-left:4px;width:38px;height:38px;border-radius:50%;background:#f0e8ff;color:#6630ba;font-size:1.05rem}.profile-popover{position:fixed;z-index:10;right:18px;top:62px;width:235px;background:var(--paper);border:1px solid var(--line);box-shadow:0 14px 30px rgba(54,28,98,.18);border-radius:17px;padding:16px}.profile-popover h3{margin:0 0 3px}.profile-popover p{margin:0 0 12px;color:var(--muted);font-size:.9rem}.logout{background:#fff0f1;color:#c33148;padding:10px 12px;border-radius:11px;width:100%;font-weight:900}.direction-picker{display:flex;flex-wrap:wrap;gap:9px;margin:15px 0 4px}.direction-picker button{border:2px solid #e4d5ff;background:#fff;border-radius:13px;padding:10px 13px;color:#6630ba;font-weight:900}.direction-picker button:hover{border-color:#8b4de8;background:#f4edff}
+</style>
+<script>
+  function toggleProfile(){document.querySelector('#profilePopover')?.classList.toggle('hidden')}
+  function logout(){localStorage.removeItem('studyflitsProfile');location.reload()}
+  const profileRoot=document.querySelector('.top');
+  profileRoot.insertAdjacentHTML('beforeend','<div class="profile-popover hidden" id="profilePopover"><h3 id="profileName">Jouw profiel</h3><p id="profileRole">Leerling</p><button class="logout" onclick="logout()">Uitloggen</button></div>');
+  const savedProfile=JSON.parse(localStorage.getItem('studyflitsProfile')||'null');
+  if(savedProfile){document.querySelector('#profileName').textContent=savedProfile.name;document.querySelector('#profileRole').textContent=savedProfile.role==='leerkracht'?'Leerkracht':'Leerling'}
+  document.querySelector('#home .subject').insertAdjacentHTML('afterend','<div class="direction-picker"><button onclick="startMode(\'nl-fr\')">🇳🇱 Nederlands → Frans</button><button onclick="startMode(\'fr-nl\')">🇫🇷 Frans → Nederlands</button><button onclick="startMode(\'mixed\')">🔀 Gemengd</button></div>');
+  function nextQuestion(){
+    current=queue.length?queue.shift():shuffle(vocab)[0];selected=null;
+    document.querySelector('#next').classList.add('hidden');document.querySelector('#check').classList.remove('hidden');
+    const reverse=mode==='fr-nl'||(mode==='mixed'&&Math.random()>.5)||(mode==='choice'&&Math.random()>.5);
+    const type=mode==='choice'||(mode==='mixed'&&Math.random()>.52)?'choice':'typed';
+    const ask=reverse?current[0]:current[1],answers=reverse?current.slice(1):[current[0]];
+    document.querySelector('#questionCount').textContent=queue.length===0?'Laatste vraag · fouten komen terug':'Nog '+(queue.length+1)+' vragen';document.querySelector('#quizBar').style.width=((8-queue.length)/8*100)+'%';
+    let html=`<div class="prompt">${reverse?'Vertaal naar het Nederlands':'Vertaal naar het Frans'}</div><div class="term">${ask}${reverse?` <button class="speak" onclick="speak('${current[0]}')">🔊</button>`:''}</div>`;
+    if(type==='typed')html+='<input id="answer" class="answer" autocomplete="off" placeholder="Typ je antwoord…" onkeydown="if(event.key===\'Enter\')checkAnswer()">';
+    else{const options=shuffle([answers[0],...shuffle(vocab.filter(w=>w!==current).map(w=>reverse?w[1]:w[0])).slice(0,3)]);html+=`<div class="choices">${options.map(x=>`<button class="choice" onclick="pick(this,'${x.replace(/'/g,"\\'")}')">${x}</button>`).join('')}</div>`}
+    html+='<div id="feedback" class="feedback"></div>';document.querySelector('#quizCard').innerHTML=html;setTimeout(()=>document.querySelector('#answer')?.focus(),100);
+  }
+</script>
+<script>
+  const showPageWithFlixyReset=window.showPage;
+  window.showPage=function(id){
+    showPageWithFlixyReset(id);
+    if(id!=='quiz')window.resetFlixyAnimation?.();
+  };
+</script>
+<style>
+  /* Minimal home: choose a subject first, then see its exercises. */
+  #home .hero,#home>.section-head,#home .quick,#home .future,#home .direction-picker{display:none!important}#home{max-width:650px;margin:70px auto 0}#home .subject{cursor:pointer;min-height:126px;transition:transform .18s,border-color .18s}#home .subject:hover{transform:translateY(-3px);border-color:#8b4de8}#home .subject .primary{pointer-events:none}.course-title{margin:10px 0 4px}.course-subtitle{color:var(--muted);margin-top:0}.course-modes{display:grid;grid-template-columns:repeat(2,1fr);gap:13px;margin-top:22px}.course-modes button{min-height:100px;text-align:left;padding:18px}.course-modes b{display:block;font-size:1.05rem;margin-top:5px}.course-modes small{color:var(--muted);font-weight:700}.streak-card{margin-top:18px;background:linear-gradient(135deg,#f4ecff,#fff);border:1px solid #e6d8fc;border-radius:18px;padding:16px;font-weight:800;color:#6630ba}@media(max-width:620px){#home{margin-top:35px}.course-modes{grid-template-columns:1fr}}
+</style>
+<script>
+  document.querySelector('#home .subject').insertAdjacentHTML('afterend','<div class="streak-card">🔥 <span id="dailyStreakCopy">1 dag streak</span> — Kom morgen terug om hem verder te zetten!</div>');
+  document.querySelector('main.shell').insertAdjacentHTML('beforeend',`<section class="page" id="course"><button class="secondary" onclick="showPage('home')">← Alle vakken</button><h1 class="course-title">🇫🇷 Frans</h1><p class="course-subtitle">Woordenschat toets 1 · Kies hoe je wilt oefenen.</p><div class="course-modes"><button class="mode" onclick="startMode('nl-fr')">🇳🇱 → 🇫🇷<b>Nederlands naar Frans</b><small>Typ het Franse woord met un/une.</small></button><button class="mode" onclick="startMode('fr-nl')">🇫🇷 → 🇳🇱<b>Frans naar Nederlands</b><small>Oefen de betekenis.</small></button><button class="mode" onclick="startMode('mixed')">🔀<b>Gemengd oefenen</b><small>Beide richtingen door elkaar.</small></button><button class="mode" onclick="startMode('flash')">🃏<b>Flashcards</b><small>Herhaal in je eigen tempo.</small></button><button class="mode" onclick="startMode('choice')">🎯<b>Meerkeuze</b><small>Kies het juiste antwoord.</small></button><button class="mode" onclick="startMode('difficult')">🧠<b>Moeilijke woorden</b><small>Extra oefenen wat nog lastig is.</small></button></div></section>`);
+  function updateDailyStreak(){
+    const today=new Date().toISOString().slice(0,10),last=state.lastActiveDate;
+    if(last!==today){
+      const yesterday=new Date(Date.now()-86400000).toISOString().slice(0,10);
+      state.streak=last===yesterday?(state.streak||0)+1:1;state.lastActiveDate=today;save();
+    }
+    const days=state.streak||1;document.querySelector('#dailyStreakCopy').textContent=days+' dag'+(days===1?'':'en')+' streak';
+  }
+  updateDailyStreak();
+</script>
+<style>
+  .portrait-hero{background:linear-gradient(135deg,#f3eaff,#fff);border:1px solid #e1cef9;border-radius:23px;padding:24px}.portrait-steps{display:grid;gap:12px;margin-top:18px}.portrait-step{display:flex;gap:14px;align-items:flex-start;padding:15px;background:var(--paper);border:1px solid var(--line);border-radius:16px}.portrait-step b:first-child{background:#8b4de8;color:white;width:31px;height:31px;border-radius:50%;display:grid;place-items:center;flex:0 0 auto}.portrait-example{margin:17px 0;padding:16px;border-radius:16px;background:#fff5d9;color:#754b00;font-weight:800;line-height:1.7}.portrait-example em{color:#6630ba;font-style:normal}.portrait-choices{display:flex;gap:9px;flex-wrap:wrap;margin:14px 0}.portrait-choices button{padding:9px 12px;border-radius:10px;background:#f0e8ff;color:#6630ba;font-weight:800}.portrait-result{padding:16px;background:#e9fbdc;border-radius:14px;color:#367700;font-weight:900;min-height:54px}
+</style>
+<script>
+  document.querySelector('#course .course-modes').insertAdjacentHTML('afterbegin','<button class="mode" onclick="startPortraitLesson()">🦕<b>Mon portrait chinois</b><small>Leer vanaf nul hoe je je eigen Franse portret schrijft.</small></button>');
+  document.querySelector('main.shell').insertAdjacentHTML('beforeend',`<section class="page" id="portrait"><button class="secondary" onclick="showPage('course')">← Frans</button><div class="portrait-hero"><div class="eyebrow">Van nul naar toetsklaar</div><h1>Mon portrait chinois</h1><p>Je gaat zinnen maken met: <b>Si j'étais… je serais…</b></p><div class="portrait-steps"><div class="portrait-step"><b>1</b><div><b>Leer de categorieën</b><br><span>un animal · un jour de la semaine · une saison · un vêtement · une chanson</span></div></div><div class="portrait-step"><b>2</b><div><b>Leer de zin</b><br><span><em>Si j'étais</em> = Als ik … was &nbsp;·&nbsp; <em>je serais</em> = dan zou ik … zijn</span></div></div><div class="portrait-step"><b>3</b><div><b>Maak je eigen antwoord</b><br><span>Kies iets dat bij jou past en oefen de hele Franse zin.</span></div></div></div></div><h2 style="margin-top:26px">Oefen één zin</h2><div class="card"><div class="prompt">Als ik een dier was, dan zou ik … zijn.</div><div class="portrait-example">🇫🇷 <em>Si j'étais un animal, je serais un pingouin.</em><br><small>Lees: “Als ik een dier was, zou ik een pinguïn zijn.”</small></div><p><b>Kies jouw dier:</b></p><div class="portrait-choices"><button onclick="makePortrait('un pingouin')">un pingouin</button><button onclick="makePortrait('un chat')">un chat</button><button onclick="makePortrait('un chien')">un chien</button><button onclick="makePortrait('un dinosaure')">un dinosaure</button></div><div class="portrait-result" id="portraitResult">Kies een dier om jouw Franse zin te maken.</div><button class="primary" style="margin-top:15px" onclick="speak('Si j’étais un animal, je serais un pingouin')">🔊 Luister naar het voorbeeld</button></div><div class="card" style="margin-top:16px"><h2>Daarna oefenen we deze</h2><div class="list"><div class="word"><span>un jour de la semaine</span><span>Si j'étais un jour, je serais lundi.</span></div><div class="word"><span>une saison</span><span>Si j'étais une saison, je serais l'été.</span></div><div class="word"><span>un vêtement</span><span>Si j'étais un vêtement, je serais un pull.</span></div><div class="word"><span>une chanson</span><span>Si j'étais une chanson, je serais ta chanson préférée.</span></div></div></div></section>`);
+  function startPortraitLesson(){showPage('portrait')}
+  function makePortrait(word){document.querySelector('#portraitResult').textContent='🇫🇷 Si j’étais un animal, je serais '+word+'.';speak('Si j’étais un animal, je serais '+word)}
+</script>
+<script>
+  function speak(text){
+    if(!('speechSynthesis'in window))return;
+    speechSynthesis.cancel();
+    const utterance=new SpeechSynthesisUtterance(text);
+    const frenchVoice=speechSynthesis.getVoices().find(voice=>/^fr(-|_)/i.test(voice.lang));
+    utterance.lang=frenchVoice?.lang||'fr-FR';
+    if(frenchVoice)utterance.voice=frenchVoice;
+    utterance.rate=.88;
+    utterance.onstart=()=>window.setFlixyState?.('talking');
+    utterance.onend=()=>window.setFlixyState?.('idle');
+    speechSynthesis.speak(utterance);
+  }
+  speechSynthesis?.getVoices?.();
+</script>
+</body>
+</html>

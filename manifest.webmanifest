@@ -1,0 +1,9 @@
+{
+  "name": "StudyFlits — Slim oefenen",
+  "short_name": "StudyFlits",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#faf7ff",
+  "theme_color": "#8b4de8",
+  "icons": [{"src": "flixy/main logo.png", "sizes": "any", "type": "image/png", "purpose": "any maskable"}]
+}
