@@ -224,7 +224,7 @@ document.querySelector('#theme').onclick=()=>{document.body.classList.toggle('da
   };
 </script>
 <style>
-  .flixy-video-shell{width:100%;height:100%;position:relative;display:grid;place-items:center}.flixy-safety-image,.flixy-idle-video,.flixy-reaction-video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}.flixy-safety-image{z-index:0;opacity:0}.flixy-video-shell.video-error .flixy-safety-image{opacity:1}.flixy-idle-video{z-index:1}.flixy-reaction-video{z-index:2;opacity:0;transition:opacity .28s ease-in-out}.flixy-video-shell.playing .flixy-reaction-video{opacity:1}.flixy-video-shell.playing .flixy-idle-video{opacity:1}.flixy-video-shell.finishing .flixy-reaction-video{opacity:0}.brand-mascot{object-fit:contain!important;background:none!important;border:0!important;border-radius:0!important}@media(prefers-reduced-motion:reduce){.flixy-reaction-video{display:none!important}}
+  .flixy-video-shell{width:100%;height:100%;position:relative;display:grid;place-items:center}.flixy-idle-video,.flixy-reaction-video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}.flixy-idle-video{z-index:1}.flixy-reaction-video{z-index:2;opacity:0;transition:opacity .28s ease-in-out}.flixy-video-shell.playing .flixy-reaction-video{opacity:1}.flixy-video-shell.playing .flixy-idle-video{opacity:1}.flixy-video-shell.finishing .flixy-reaction-video{opacity:0}.brand-mascot{object-fit:contain!important;background:none!important;border:0!important;border-radius:0!important}@media(prefers-reduced-motion:reduce){.flixy-reaction-video{display:none!important}}
 </style>
 <script>
   /* User-made WebM animations: happy plays for correct answers, sad for mistakes. */
@@ -232,10 +232,9 @@ document.querySelector('#theme').onclick=()=>{document.body.classList.toggle('da
     const holder=document.querySelector('#flits');
     if(!holder)return;
     holder.classList.add('flixy-video-shell');
-    holder.innerHTML='<img class="flixy-safety-image" src="flixy/stand%20still.png" alt="Flixy, de paarse dinosaurus"><video class="flixy-idle-video" muted playsinline autoplay loop preload="auto" aria-label="Flixy, de paarse dinosaurus"><source src="flixy/afk.webm" type="video/webm"></video><video class="flixy-reaction-video" muted playsinline preload="auto"></video>';
+    holder.innerHTML='<video class="flixy-idle-video" muted playsinline autoplay loop preload="auto" poster="flixy/stand%20still.png" aria-label="Flixy, de paarse dinosaurus"><source src="flixy/afk.webm" type="video/webm"></video><video class="flixy-reaction-video" muted playsinline preload="auto"></video>';
     const idleVideo=holder.querySelector('.flixy-idle-video');
-    idleVideo.play().catch(()=>holder.classList.add('video-error'));
-    idleVideo.addEventListener('error',()=>holder.classList.add('video-error'));
+    idleVideo.play().catch(()=>{});
     const video=holder.querySelector('video');
     window.playFlixyAnimation=function(kind){
       if(window.matchMedia?.("(prefers-reduced-motion: reduce)").matches)return;
@@ -251,11 +250,11 @@ document.querySelector('#theme').onclick=()=>{document.body.classList.toggle('da
       holder.classList.remove('playing','finishing');
       video.pause();
       video.currentTime=0;
-      idleVideo.play().catch(()=>holder.classList.add('video-error'));
+      idleVideo.play().catch(()=>{});
     };
     video.addEventListener('ended',()=>{
       holder.classList.add('finishing');
-      setTimeout(()=>{holder.classList.remove('playing','finishing');video.pause();video.currentTime=0},780);
+      setTimeout(()=>window.resetFlixyAnimation(),280);
     });
   }
   window.addEventListener('load',installVideoFlixy,{once:true});
@@ -273,16 +272,30 @@ document.querySelector('#theme').onclick=()=>{document.body.classList.toggle('da
   if(savedProfile){document.querySelector('#profileName').textContent=savedProfile.name;document.querySelector('#profileRole').textContent=savedProfile.role==='leerkracht'?'Leerkracht':'Leerling'}
   document.querySelector('#home .subject').insertAdjacentHTML('afterend','<div class="direction-picker"><button onclick="startMode(\'nl-fr\')">🇳🇱 Nederlands → Frans</button><button onclick="startMode(\'fr-nl\')">🇫🇷 Frans → Nederlands</button><button onclick="startMode(\'mixed\')">🔀 Gemengd</button></div>');
   function nextQuestion(){
-    current=queue.length?queue.shift():shuffle(vocab)[0];selected=null;
+    if(!queue.length){finishLesson();return}
+    current=queue.shift();selected=null;
     document.querySelector('#next').classList.add('hidden');document.querySelector('#check').classList.remove('hidden');
     const reverse=mode==='fr-nl'||(mode==='mixed'&&Math.random()>.5)||(mode==='choice'&&Math.random()>.5);
     const type=mode==='choice'||(mode==='mixed'&&Math.random()>.52)?'choice':'typed';
     const ask=reverse?current[0]:current[1],answers=reverse?current.slice(1):[current[0]];
     document.querySelector('#questionCount').textContent=queue.length===0?'Laatste vraag · fouten komen terug':'Nog '+(queue.length+1)+' vragen';document.querySelector('#quizBar').style.width=((8-queue.length)/8*100)+'%';
     let html=`<div class="prompt">${reverse?'Vertaal naar het Nederlands':'Vertaal naar het Frans'}</div><div class="term">${ask}${reverse?` <button class="speak" onclick="speak('${current[0]}')">🔊</button>`:''}</div>`;
-    if(type==='typed')html+='<input id="answer" class="answer" autocomplete="off" placeholder="Typ je antwoord…" onkeydown="if(event.key===\'Enter\')checkAnswer()">';
+    if(type==='typed')html+='<input id="answer" class="answer" autocomplete="off" placeholder="Typ je antwoord…" onkeydown="if(event.key===\'Enter\')checkAnswer()">'+(!reverse?'<div class="french-keyboard" aria-label="Franse tekens"><button type="button" onclick="insertFrenchChar(\'é\')">é</button><button type="button" onclick="insertFrenchChar(\'è\')">è</button><button type="button" onclick="insertFrenchChar(\'ê\')">ê</button><button type="button" onclick="insertFrenchChar(\'à\')">à</button><button type="button" onclick="insertFrenchChar(\'ç\')">ç</button><button type="button" onclick="insertFrenchChar(\'ù\')">ù</button></div>':'');
     else{const options=shuffle([answers[0],...shuffle(vocab.filter(w=>w!==current).map(w=>reverse?w[1]:w[0])).slice(0,3)]);html+=`<div class="choices">${options.map(x=>`<button class="choice" onclick="pick(this,'${x.replace(/'/g,"\\'")}')">${x}</button>`).join('')}</div>`}
     html+='<div id="feedback" class="feedback"></div>';document.querySelector('#quizCard').innerHTML=html;setTimeout(()=>document.querySelector('#answer')?.focus(),100);
+  }
+  function finishLesson(){
+    document.querySelector('#questionCount').textContent='Les klaar!';
+    document.querySelector('#quizBar').style.width='100%';
+    document.querySelector('#quizCard').innerHTML='<div class="eyebrow">Fantastisch!</div><div class="term">Goed gedaan! 🎉</div><p>Je hebt alle vragen juist beantwoord. Flixy is trots op jou!</p><button class="primary" onclick="showPage(\'course\')">Terug naar Frans</button>';
+    document.querySelector('#check').classList.add('hidden');document.querySelector('#next').classList.add('hidden');
+    window.playFlixyAnimation?.('happy');
+  }
+  function insertFrenchChar(character){
+    const input=document.querySelector('#answer');if(!input)return;
+    const start=input.selectionStart,end=input.selectionEnd;
+    input.value=input.value.slice(0,start)+character+input.value.slice(end);
+    input.focus();input.setSelectionRange(start+character.length,start+character.length);
   }
 </script>
 <script>
@@ -332,6 +345,59 @@ document.querySelector('#theme').onclick=()=>{document.body.classList.toggle('da
     speechSynthesis.speak(utterance);
   }
   speechSynthesis?.getVoices?.();
+</script>
+<script>
+  const standardCheckAnswer=window.checkAnswer;
+  window.checkAnswer=function(){
+    const typed=document.querySelector('#answer')?.value?.trim()||'';
+    standardCheckAnswer();
+    const feedback=document.querySelector('#feedback');
+    if(!feedback || !feedback.classList.contains('close'))return;
+    const correctText=feedback.textContent.toLowerCase();
+    const typedText=typed.toLowerCase();
+    if(correctText.includes('je serais') && !typedText.includes('je serais')){
+      feedback.textContent='Bijna goed — let op het werkwoord: na “Si j’étais …” gebruik je “je serais …”, niet “je suis” of “je serai”.';
+    }
+  };
+</script>
+<script>
+  const articleAccentCheckBase=window.checkAnswer;
+  function withoutAccents(value){return value.normalize('NFD').replace(/[\u0300-\u036f]/g,'')}
+  window.checkAnswer=function(){
+    const typed=document.querySelector('#answer')?.value?.trim()||'';
+    articleAccentCheckBase();
+    const feedback=document.querySelector('#feedback');
+    const target=current?.[0]||'';
+    if(!feedback?.classList.contains('close')||!typed||!target)return;
+    const typedArticle=typed.match(/^(un|une)\s+(.+)$/i);
+    const targetArticle=target.match(/^(un|une)\s+(.+)$/i);
+    if(typedArticle&&targetArticle&&norm(withoutAccents(typedArticle[2]))===norm(withoutAccents(targetArticle[2]))&&typedArticle[1].toLowerCase()!==targetArticle[1].toLowerCase()){
+      feedback.textContent=`Bijna goed — let op het lidwoord: het is “${targetArticle[1]}”, niet “${typedArticle[1]}”. Het juiste antwoord is: ${target}.`;
+      return;
+    }
+    if(norm(withoutAccents(typed))===norm(withoutAccents(target))&&norm(typed)!==norm(target)){
+      feedback.textContent=`Bijna goed — let op het accent: schrijf “${target}”, niet “${typed}”.`;
+    }
+  };
+</script>
+<style>
+  .french-keyboard{display:flex;justify-content:center;gap:7px;flex-wrap:wrap;margin-top:-10px}.french-keyboard button{width:38px;height:36px;border-radius:10px;background:#f0e8ff;color:#6630ba;border:1px solid #dbc9fb;font-weight:900;font-size:1.05rem}.french-keyboard button:hover{background:#dfccff;transform:translateY(-1px)}
+</style>
+<style>
+  /* StudyFlits icon set: CSS-drawn icons, never operating-system emoji. */
+  .sf-icon{display:inline-block;width:1em;height:1em;vertical-align:-.12em;margin:0 .13em;border:2px solid #6b36bd;background:#b879ff;border-radius:.28em;position:relative;box-shadow:inset 0 0 0 2px rgba(255,255,255,.3)}
+  .sf-icon[data-kind="fire"]{border-radius:70% 30% 70% 30%;transform:rotate(-35deg);background:#9a5af2}.sf-icon[data-kind="star"]{clip-path:polygon(50% 0,62% 34%,100% 38%,70% 61%,80% 100%,50% 77%,20% 100%,30% 61%,0 38%,38% 34%);border:0;border-radius:0}.sf-icon[data-kind="heart"]{border:0;border-radius:50% 50% 42% 42%;transform:rotate(45deg);width:.8em;height:.8em}.sf-icon[data-kind="flag"]{border-radius:2px;width:1.15em;height:.78em;background:linear-gradient(90deg,#5b2eaa 0 33%,#fff 33% 66%,#b879ff 66%)}.sf-icon[data-kind="book"]{border-radius:.18em .38em .38em .18em;background:linear-gradient(90deg,#a76aff 0 48%,#d7bdff 48% 52%,#a76aff 52%)}.sf-icon[data-kind="lock"]{border-radius:.15em;margin-top:.2em}.sf-icon[data-kind="lock"]:before{content:'';position:absolute;width:.45em;height:.4em;border:2px solid #6b36bd;border-bottom:0;border-radius:.4em .4em 0 0;left:.12em;top:-.47em}.sf-icon[data-kind="action"]{border-radius:50%;background:#8b4de8}.sf-icon[data-kind="check"]{border-radius:50%;background:#8b4de8}.sf-icon[data-kind="check"]:after{content:'';position:absolute;width:.5em;height:.25em;border-left:2px solid #fff;border-bottom:2px solid #fff;transform:rotate(-45deg);left:.18em;top:.18em}.sf-icon[data-kind="wrong"]{border-radius:50%;background:#8b4de8}.sf-icon[data-kind="wrong"]:before,.sf-icon[data-kind="wrong"]:after{content:'';position:absolute;left:.42em;top:.13em;height:.65em;border-left:2px solid #fff;transform:rotate(45deg)}.sf-icon[data-kind="wrong"]:after{transform:rotate(-45deg)}
+</style>
+<script>
+  const studyFlitsIconMap={'🔥':'fire','⭐':'star','❤️':'heart','🇫🇷':'flag','🇳🇱':'flag','🃏':'action','🎯':'action','🧠':'action','📚':'book','🗺️':'action','🔒':'lock','👀':'action','👋':'action','✍️':'action','🦕':'action','🎓':'action','🧑‍🏫':'action','⚡':'action','🎉':'star','✅':'check','❌':'wrong','🔀':'action','☷':'action','⌂':'action','✦':'star','🔊':'action','☀':'action','☾':'action'};
+  const emojiPattern=new RegExp(Object.keys(studyFlitsIconMap).sort((a,b)=>b.length-a.length).join('|'),'g');
+  function replaceStudyFlitsEmojis(root){
+    const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);const nodes=[];let node;
+    while(node=walker.nextNode()){if(!['SCRIPT','STYLE'].includes(node.parentElement?.tagName)&&emojiPattern.test(node.nodeValue))nodes.push(node);emojiPattern.lastIndex=0}
+    nodes.forEach(textNode=>{const fragment=document.createDocumentFragment();let last=0;textNode.nodeValue.replace(emojiPattern,(match,index)=>{fragment.append(textNode.nodeValue.slice(last,index));const icon=document.createElement('span');icon.className='sf-icon';icon.dataset.kind=studyFlitsIconMap[match]||'action';icon.setAttribute('aria-hidden','true');fragment.append(icon);last=index+match.length});fragment.append(textNode.nodeValue.slice(last));textNode.replaceWith(fragment)})
+  }
+  replaceStudyFlitsEmojis(document.body);
+  new MutationObserver(records=>records.forEach(record=>record.addedNodes.forEach(node=>{if(node.nodeType===Node.ELEMENT_NODE||node.nodeType===Node.DOCUMENT_FRAGMENT_NODE)replaceStudyFlitsEmojis(node);if(node.nodeType===Node.TEXT_NODE)replaceStudyFlitsEmojis(node.parentElement)}))).observe(document.body,{childList:true,subtree:true});
 </script>
 </body>
 </html>
