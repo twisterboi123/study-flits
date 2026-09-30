@@ -231,6 +231,7 @@ document.querySelector('#theme').onclick=()=>{document.body.classList.toggle('da
   function installVideoFlixy(){
     const holder=document.querySelector('#flits');
     if(!holder)return;
+    if(holder.querySelector('.flixy-idle-video'))return;
     holder.classList.add('flixy-video-shell');
     holder.innerHTML='<video class="flixy-idle-video" muted playsinline autoplay loop preload="auto" poster="flixy/stand%20still.png" aria-label="Flixy, de paarse dinosaurus"><source src="flixy/afk.webm" type="video/webm"></video><video class="flixy-reaction-video" muted playsinline preload="auto"></video>';
     const idleVideo=holder.querySelector('.flixy-idle-video');
@@ -406,13 +407,45 @@ document.querySelector('#theme').onclick=()=>{document.body.classList.toggle('da
   function installWelcomeFlixy(){
     const character=document.querySelector('.flixy-character');
     if(!character)return;
+    if(character.querySelector('.welcome-flixy-video'))return;
     character.innerHTML='<video class="welcome-flixy-video" muted autoplay loop playsinline preload="auto" poster="flixy/main%20logo.png"><source src="flixy/afk.webm" type="video/webm"></video>';
     character.querySelector('video').play().catch(()=>{});
   }
   window.addEventListener('load',installWelcomeFlixy,{once:true});
+  window.addEventListener('load',()=>setTimeout(()=>{installVideoFlixy();installWelcomeFlixy()},450),{once:true});
 </script>
 <style>
   body.dark .course-modes .mode,body.dark .mode,body.dark .portrait-step,body.dark .portrait-example,body.dark .profile-popover{background:#243233!important;color:#eef7f3!important;border-color:#435554!important}body.dark .course-modes .mode small,body.dark .portrait-step span,body.dark .course-subtitle{color:#b7c6c3!important}body.dark .portrait-hero{background:linear-gradient(135deg,#2b203b,#1f2a2b)!important;border-color:#55406f!important}body.dark .streak-card{background:linear-gradient(135deg,#2b203b,#1f2a2b)!important;border-color:#55406f!important;color:#d8bdff!important}body.dark .primary{color:#fff!important}body.dark .secondary{background:#35254c!important;color:#ebdcff!important}
 </style>
+<style>
+  @media(max-width:620px){
+    body.in-exercise .nav{display:none}
+    body.in-exercise .shell{padding-bottom:16px}
+    #quiz .quiz-wrap{min-height:calc(100dvh - 78px)}
+    #quiz .quiz-card{min-height:auto;padding-bottom:18px}
+    #quiz .answer{font-size:18px;min-height:56px}
+    #quiz .quiz-actions{position:sticky;bottom:calc(8px + env(safe-area-inset-bottom));z-index:5;padding:10px 0 6px;background:linear-gradient(to top,var(--bg) 78%,transparent)}
+    #quiz .quiz-actions .primary{width:100%;min-height:54px;font-size:1.05rem}
+    #quiz .french-keyboard{margin-top:2px;padding-bottom:3px}
+    #quiz .french-keyboard button{width:44px;height:42px;font-size:1.15rem}
+  }
+</style>
+<script>
+  /* Keep the active answer field and action visible above mobile software keyboards. */
+  document.addEventListener('focusin',event=>{
+    if(event.target.matches('#answer'))setTimeout(()=>event.target.scrollIntoView({behavior:'smooth',block:'center'}),180);
+  });
+  const showPageForMobile=window.showPage;
+  window.showPage=function(id){
+    showPageForMobile(id);
+    document.body.classList.toggle('in-exercise',id==='quiz');
+  };
+  if(window.visualViewport){
+    window.visualViewport.addEventListener('resize',()=>{
+      const input=document.querySelector('#answer:focus');
+      if(input)setTimeout(()=>input.scrollIntoView({block:'center'}),50);
+    });
+  }
+</script>
 </body>
 </html>
