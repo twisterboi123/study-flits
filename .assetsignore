@@ -1,0 +1,11 @@
+.git/
+.wrangler/
+.openai/
+sources/
+components/
+assets/
+src/
+migrations/
+AGENTS.md
+wrangler.jsonc
+.assetsignore

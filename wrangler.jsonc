@@ -1,0 +1,22 @@
+{
+	"$schema": "./node_modules/wrangler/config-schema.json",
+	"name": "studyflits",
+	"main": "src/worker.js",
+	"compatibility_date": "2026-10-02",
+	"assets": {
+		"directory": ".",
+		"binding": "ASSETS",
+		"run_worker_first": ["/api/*"],
+		"not_found_handling": "single-page-application"
+	},
+	"observability": {
+		"enabled": true
+	},
+	"d1_databases": [
+		{
+			"binding": "DB",
+			"database_name": "studyflits-classrooms",
+			"database_id": "792faec5-55bb-4875-a3a1-ae686cd70e78"
+		}
+	]
+}
