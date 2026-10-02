@@ -9,3 +9,4 @@ migrations/
 AGENTS.md
 wrangler.jsonc
 .assetsignore
+.gitignore
