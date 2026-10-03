@@ -29,7 +29,7 @@ function code() { return Array.from(crypto.getRandomValues(new Uint8Array(5)), n
 async function api(request, env, path) {
   if (path === '/api/auth/register' && request.method === 'POST') {
     const {name,email,password,role} = await body(request);
-    if (!name?.trim() || !/^\S+@\S+\.\S+$/.test(email||'') || !password || password.length < 8 || !['leerling','leerkracht'].includes(role)) return json({error:'Vul een naam, geldig e-mailadres en een wachtwoord van minstens 8 tekens in.'},400);
+    if (!name?.trim() || !/^\S+@\S+\.\S+$/.test(email||'') || !password || password.length < 10 || !['leerling','leerkracht'].includes(role)) return json({error:'Vul een naam, geldig e-mailadres en een wachtwoord van minstens 10 tekens in.'},400);
     const exists=await env.DB.prepare('SELECT id FROM users WHERE email=?').bind(email.toLowerCase()).first();
     if(exists) return json({error:'Er bestaat al een account met dit e-mailadres.'},409);
     const salt=b64(crypto.getRandomValues(new Uint8Array(16))); const userId=id();
