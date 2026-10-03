@@ -8,7 +8,7 @@ async function digest(value) {
 }
 async function passwordHash(password, salt) {
   const key = await crypto.subtle.importKey('raw', encoder.encode(password), 'PBKDF2', false, ['deriveBits']);
-  const bits = await crypto.subtle.deriveBits({ name:'PBKDF2', hash:'SHA-256', salt:fromB64(salt), iterations:120000 }, key, 256);
+  const bits = await crypto.subtle.deriveBits({ name:'PBKDF2', hash:'SHA-256', salt:fromB64(salt), iterations:100000 }, key, 256);
   return b64(new Uint8Array(bits));
 }
 function json(data, status=200, headers={}) { return new Response(JSON.stringify(data), {status, headers:{'content-type':'application/json; charset=utf-8', ...headers}}); }
